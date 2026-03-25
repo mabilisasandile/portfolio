@@ -1,0 +1,143 @@
+.navbar {
+    padding: 15px 0;
+    background: var(--card-bg);
+    color: var(--text-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Theme button */
+.theme-toggle,
+.hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+/* Make icons clickable area nicer */
+.theme-toggle {
+  padding: 8px;
+  border-radius: 6px;
+  background: var(--card-bg);
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1); /* subtle border */
+}
+
+.hamburger {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.theme-toggle:hover,
+.hamburger:hover {
+  color: var(--primary-color);
+  transition: 0.3s ease;
+}
+
+.theme-toggle svg,
+.hamburger svg {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover svg,
+.hamburger:hover svg {
+  transform: scale(1.2);
+}
+
+.theme-toggle svg {
+  color: var(--text-color);
+}
+
+body.light .theme-toggle {
+  background: #e2e8f0;
+}
+
+body:not(.light) .theme-toggle {
+  background: #1e293b;
+}
+
+/* Links (Mobile First) */
+.nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: var(--card-bg);
+    color: var(--text-color);
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    gap: 20px;
+    display: none;
+    padding: 20px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-links li {
+    color: var(--text-color);
+    list-style: none;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.nav-links li:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  position: relative;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* ACTIVE LINK */
+.nav-links a.active {
+  color: var(--primary-color);
+}
+
+/* Show menu */
+.nav-links.active{
+    display: flex;
+    color: var(--primary-color);
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+    .hamburger {
+        display: none;
+    }
+
+    .nav-links {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        gap: 20px;
+        padding: 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+}

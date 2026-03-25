@@ -1,0 +1,76 @@
+.footer {
+  background: var(--card-bg);
+  padding-top: 40px;
+  margin-top: 60px;
+}
+
+/* CONTENT */
+.footer-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  text-align: center;
+}
+
+/* BRAND */
+.footer-brand h3 {
+  margin-bottom: 10px;
+}
+
+.footer-brand p {
+  color: var(--secondary-text);
+}
+
+/* LINKS */
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+/* SOCIALS */
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 1.3rem;
+}
+
+.footer-socials a {
+  color: var(--text-color);
+}
+
+.footer-socials a:hover {
+  color: var(--primary-color);
+}
+
+/* BOTTOM */
+.footer-bottom {
+  margin-top: 30px;
+  padding: 15px 0;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+  color: var(--secondary-text);
+}
+
+/* TABLET */
+@media (min-width: 768px) {
+  .footer-content {
+    grid-template-columns: repeat(3, 1fr);
+    text-align: left;
+  }
+
+  .footer-socials {
+    justify-content: flex-start;
+  }
+}

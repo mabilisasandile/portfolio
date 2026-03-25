@@ -1,0 +1,46 @@
+.contact {
+  padding: 60px 0;
+}
+
+.contact-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* FORM */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* INPUTS */
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  outline: none;
+  font-family: inherit;
+}
+
+/* THEME SUPPORT */
+.contact-form input,
+.contact-form textarea {
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+/* BUTTON */
+.contact-form button {
+  margin-top: 10px;
+}
+
+/* STATUS MESSAGE */
+.status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+}
