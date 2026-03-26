@@ -1,0 +1,51 @@
+@base_address = http://localhost:3000/api/Contact
+@base_addressb = http://localhost:3000/api/Project
+
+POST {{base_address}}
+Content-Type: application/json
+
+{
+    "name": "Sam",
+    "email": "sam@gmail.com",
+    "message": "This is the 3rd test of the backend app"
+}
+
+###
+GET {{base_address}}
+
+###
+DELETE {{base_address}}/2
+
+###
+POST {{base_addressb}}
+Content-Type: application/json
+
+{
+    "title": "E-Learning App",
+    "description": "This an app used to learn different courses accessible world wide.",
+    "technologies": "React, Tailwind CSS, ASP.NET Core, and PostgreSQL",
+    "githubUrl": "https://github.com/mabilisasandile/elearningapp",
+    "liveUrl": "https://app.versel.elearningapp"
+}
+
+###
+GET {{base_addressb}}
+
+###
+GET {{base_addressb}}/3
+
+###
+PUT {{base_addressb}}/3
+Content-Type: application/json
+
+{
+    "title": "Online Shopping Web App",
+    "description": "This an app built to enable users to shop clothing online, place orders and make payments",
+    "technologies": "React, CSS3, ASP.NET Core, SQL Server, REST Client and Swagger UI",
+    "githubUrl": "https://github.com/mabilisasandile/shoppingapp",
+    "liveUrl": "https://app.versel.shoppingapp",
+    "createdAt": "2026-03-25T17:15:10.7Z"
+}
+
+###
+DELETE {{base_addressb}}/1
