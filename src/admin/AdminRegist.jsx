@@ -3,33 +3,33 @@ import "./AdminLogin.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-// import axios from "axios";
 
-const AdminLogin = () => {
+const AdminRegist = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegist = async (e) => {
     e.preventDefault(); // Stop page refresh
 
     try {
-      const res = await api.post("/auth/login", {
+      const res = await api.post("/auth/register", {
         email,
         password
       });
 
-      localStorage.setItem("token", res.data.token);
-
-      console.log("TOKEN:", res.data.token);
+      console.log("Response: ", res.data);
+      alert(res.data);
+      setStatus(res.data);
 
       navigate("/admin/dashboard");
 
     } catch (err) {
-      console.error("LOGIN ERROR:", err.response?.data || err.message);
+      console.error("REGISTRATION ERROR:", err.response?.data || err.message);
       console.log("FULL ERROR:", err);
+      alert(err.response?.data || err.message);
       setStatus(err.response?.data || err.message);
     }
   };
@@ -44,9 +44,9 @@ const AdminLogin = () => {
         viewport={{ once: true }}
       >
         <div className="container login-content">
-          <h2>Log Me In</h2>
+          <h2>Add New Admin</h2>
 
-          <form onSubmit={handleLogin} className="login-form">
+          <form onSubmit={handleRegist} className="login-form">
             <input
               type="text"
               name="username"
@@ -66,7 +66,7 @@ const AdminLogin = () => {
             />
 
             <button type="submit" className="btn btn-primary">
-              Login
+              Submit
             </button>
 
             {status && <p className="status">{status}</p>}
@@ -77,4 +77,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default AdminRegist;

@@ -11,8 +11,10 @@ import AdminDashboard from "./admin/AdminDashboard";
 import ManageProjects from "./admin/ManageProjects";
 import Messages from "./admin/Messages";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRegist from "./admin/AdminRegist";
 
 function App() {
+
   return (
     <>
       <Navbar />
@@ -22,7 +24,7 @@ function App() {
         <Route path="/skills" element={<SkillsPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/login" element={<AdminLogin />} />
 
         <Route
           path="/admin/dashboard"
@@ -47,6 +49,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Messages />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/register"
+          element={
+            <ProtectedRoute>
+              <AdminRegist />
             </ProtectedRoute>
           }
         />

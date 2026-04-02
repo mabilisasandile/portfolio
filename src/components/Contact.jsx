@@ -32,12 +32,15 @@ const Contact = () => {
 
       if (response.ok) {
         setStatus("Message sent successfully!");
+        alert("Message sent successfully!");
         setFormData({ name: "", email: "", message: "" });
       } else {
         setStatus("Something went wrong.");
+        alert("Something went wrong.");
       }
     } catch (error) {
       setStatus("Server error. Try again later.");
+      alert("Server error. Try again later.");
     }
   };
 
