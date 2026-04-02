@@ -122,3 +122,13 @@
 /home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 /home/sandile/Desktop/portfolioBackend/Backend/obj/Debug/net10.0/Backend.MvcApplicationPartsAssemblyInfo.cs
 /home/sandile/Desktop/portfolioBackend/Backend/obj/Debug/net10.0/Backend.csproj.Up2Date
+/home/sandile/Desktop/portfolioBackend/Backend/obj/Debug/net10.0/Backend.sourcelink.json
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/BCrypt.Net-Next.dll
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/Microsoft.IdentityModel.Abstractions.dll
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/Microsoft.IdentityModel.Logging.dll
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.dll
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll
+/home/sandile/Desktop/portfolioBackend/Backend/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll
