@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import "./AdminLogin.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +22,7 @@ const AdminRegist = () => {
       });
 
       console.log("Response: ", res.data);
-      alert(res.data);
+      toast.success(res.data);
       setStatus(res.data);
 
       navigate("/admin/dashboard");
@@ -29,7 +30,7 @@ const AdminRegist = () => {
     } catch (err) {
       console.error("REGISTRATION ERROR:", err.response?.data || err.message);
       console.log("FULL ERROR:", err);
-      alert(err.response?.data || err.message);
+      toast.error(err.response?.data || err.message);
       setStatus(err.response?.data || err.message);
     }
   };

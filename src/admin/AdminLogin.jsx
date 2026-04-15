@@ -1,9 +1,9 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import "./AdminLogin.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-// import axios from "axios";
 
 const AdminLogin = () => {
 
@@ -31,6 +31,7 @@ const AdminLogin = () => {
       console.error("LOGIN ERROR:", err.response?.data || err.message);
       console.log("FULL ERROR:", err);
       setStatus(err.response?.data || err.message);
+      toast.error(err.response?.data || err.message);
     }
   };
 

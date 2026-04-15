@@ -8,6 +8,11 @@
     align-items: center;
 }
 
+.loading-text {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
 .add-btn {
     background: #007bff;
     color: white;
@@ -112,6 +117,16 @@
     margin-top: 10px;
 }
 
-.modal-actions .cancel {
-    background: #ccc;
+.modal-actions button {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.modal-actions button:hover {
+    cursor: pointer;
+    background: #0f172a;
 }

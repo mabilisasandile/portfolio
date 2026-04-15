@@ -7,13 +7,22 @@ import { fetchProjects } from "../services/dataService";
 const Projects = () => {
 
   const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setProjects(await fetchProjects());
-    };
+    try {
+      const fetchData = async () => {
+        setProjects(await fetchProjects());
+      };
 
-    fetchData();
+      fetchData();
+    }
+    catch (error) {
+      console.error("Error fetching projects: ", error);
+    }
+    finally {
+      setLoading(false);
+    }
   }, [])
 
   return (
@@ -21,10 +30,8 @@ const Projects = () => {
       <div className="container">
         <h2 className="section-title">Projects</h2>
 
-        {projects.length === 0 ? (
-          <div className="">
-            <p>No projects yet</p>
-          </div>
+        {loading ? (
+          <h3 className="section-title">Loading...</h3>
         ) : (
           <div className="projects-grid">
             {projects.map((project) => (
@@ -63,7 +70,7 @@ const Projects = () => {
             ))}
           </div>
         )}
-        
+
       </div>
     </section>
   );

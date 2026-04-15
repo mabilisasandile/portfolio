@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import toast from "react-hot-toast";
 import "./ManageProjects.css";
-import { fetchProjects, addNewProject } from "../services/dataService";
+import { fetchProjects, addNewProject, editProject } from "../services/dataService";
+import api from "../services/api";
 
 const ManageProjects = () => {
     const [projects, setProjects] = useState([]);
-
+    const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
+    const [projectId, setProjectId] = useState(null);
 
     const [formData, setFormData] = useState({
         title: "",
@@ -18,11 +21,19 @@ const ManageProjects = () => {
     });
 
     useEffect(() => {
-        const fetchData = async () => {
-            setProjects(await fetchProjects());
-        };
+        try {
+            const fetchData = async () => {
+                setProjects(await fetchProjects());
+            };
 
-        fetchData();
+            fetchData();
+        }
+        catch (error) {
+            console.error("Error fetching projects: ", error);
+        }
+        finally {
+            setLoading(false);
+        }
     }, [])
 
     // OPEN MODAL (ADD)
@@ -43,25 +54,53 @@ const ManageProjects = () => {
         setFormData(projects[index]);
         setEditingIndex(index);
         setShowModal(true);
+        setProjectId(projects[index].id);
+        console.log("Edit project ID: ", projects[index].id);
     };
 
     // SAVE PROJECT
     const handleSave = () => {
         if (editingIndex !== null) {
-            const updated = [...projects];
-            updated[editingIndex] = formData;
-            setProjects(updated);
+            setLoading(true);
+            try {
+                editProject(projectId, formData);
+                const updated = [...projects];
+                updated[editingIndex] = formData;
+                setProjects(updated);
+                toast.success("Project edited successfully.");
+            } catch(error) {
+                console.error("Error editting project: ", error);
+                toast.error("Error editting project");
+            } finally {
+                setLoading(false);
+            } 
+
         } else {
             setProjects([...projects, formData]);
             addNewProject(formData);
+            toast.success("Project added successfully.");
         }
 
         setShowModal(false);
     };
 
     // DELETE
-    const handleDelete = (index) => {
-        setProjects(projects.filter((_, i) => i !== index));
+    const handleDelete = async (project, index) => {
+        if (!confirm(`Are you sure you want to delete project: ${project.title}?`)) return;
+
+        setLoading(true);
+        try {
+            await api.delete(`/Project/${project.id}`);
+            setProjects(projects.filter((_, i) => i !== index));
+            toast.success("Project deleted successfully.");
+        }
+        catch (error) {
+            console.error("Error deleting project: ", error);
+            toast.error("Error deleting project");
+        }
+        finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -73,31 +112,34 @@ const ManageProjects = () => {
                 </button>
             </div>
 
-            <div className="projects-grid">
-                {projects.map((p, i) => (
-                    <div key={i} className="project-card">
-                        <h3>{p.title}</h3>
-                        <p>{p.description}</p>
+            {loading ? (<h3 className="loading-text">Loading...</h3>)
+                :
+                (<div className="projects-grid">
+                    {projects.map((p, i) => (
+                        <div key={i} className="project-card">
+                            <h3>{p.title}</h3>
+                            <p>{p.description}</p>
 
-                        <p className="tech">{p.technologies}</p>
+                            <p className="tech">{p.technologies}</p>
 
-                        <div className="links">
-                            <a href={p.githubUrl} target="_blank">GitHub</a>
-                            <a href={p.liveUrl} target="_blank">Live</a>
+                            <div className="links">
+                                <a href={p.githubUrl} target="_blank">GitHub</a>
+                                <a href={p.liveUrl} target="_blank">Live</a>
+                            </div>
+
+                            <div className="actions">
+                                <button className="edit" onClick={() => openEditModal(i)}>
+                                    <FaEdit /> Edit
+                                </button>
+
+                                <button className="delete" onClick={() => handleDelete(p, i)}>
+                                    <FaTrash /> Delete
+                                </button>
+                            </div>
                         </div>
-
-                        <div className="actions">
-                            <button className="edit" onClick={() => openEditModal(i)}>
-                                <FaEdit /> Edit
-                            </button>
-
-                            <button className="delete" onClick={() => handleDelete(i)}>
-                                <FaTrash /> Delete
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>)
+            }
 
             {/* MODAL */}
             {showModal && (
@@ -146,7 +188,7 @@ const ManageProjects = () => {
                         />
 
                         <div className="modal-actions">
-                            <button onClick={handleSave}>
+                            <button className="save" onClick={handleSave}>
                                 {editingIndex !== null ? "Update" : "Add"}
                             </button>
 

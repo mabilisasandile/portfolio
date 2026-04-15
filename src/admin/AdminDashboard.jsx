@@ -26,7 +26,7 @@ const AdminDashboard = () => {
   const stats = {
     projects: projectsCount,
     messages: messageCount,
-    admins: 2
+    admins: 1
   };
 
   return (

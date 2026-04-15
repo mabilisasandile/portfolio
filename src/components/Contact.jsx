@@ -1,5 +1,7 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import "./Contact.css";
+import { sendMessage } from "../services/dataService";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -21,26 +23,13 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      // Connect to ASP.NET
-      const response = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setStatus("Message sent successfully!");
-        alert("Message sent successfully!");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setStatus("Something went wrong.");
-        alert("Something went wrong.");
-      }
+      sendMessage(formData);
+      setStatus("Message sent successfully!");
+      toast.success("Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       setStatus("Server error. Try again later.");
-      alert("Server error. Try again later.");
+      toast.error("Server error. Try again later.");
     }
   };
 

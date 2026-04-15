@@ -1,23 +1,30 @@
 import api from "../services/api";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import "./Messages.css";
+import { fetchMessages, fetchMessageCount } from "../services/dataService";
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [messageCount, setMessageCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMessages = async () => {
+    const loadMessages = async () => {
       try {
-        const response = await api.get("/Contact");
-        setMessages(response.data);
-        setMessageCount(response.data.length);
+        setMessages(await fetchMessages());
+        setMessageCount(await fetchMessageCount());
+        console.log("setMessages: ", messages);
+        console.log("setMessageCount: ", messageCount);
+
       } catch (error) {
         console.error("Error fetching messages:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchMessages();
+    loadMessages();
   }, []);
 
   const handleDelete = async (id) => {
@@ -26,9 +33,10 @@ const Messages = () => {
       const updatedMessages = messages.filter(msg => msg.id !== id);
       setMessages(updatedMessages);
       setMessageCount(updatedMessages.length);
+      toast.success("Message deleted successfully.");
     } catch (error) {
       console.error("Error deleting message:", error);
-      alert("Failed to delete message.");
+      toast.error("Failed to delete message.");
     }
   };
 
@@ -39,9 +47,9 @@ const Messages = () => {
         <span>{messageCount} Messages</span>
       </div>
 
-      {messageCount === 0 ? (
+      {loading && messageCount === 0 ? (
         <div className="empty-state">
-          <p>No messages yet 📭</p>
+          <h3>Loading messages...</h3>
         </div>
       ) : (
         <div className="messages-grid">
