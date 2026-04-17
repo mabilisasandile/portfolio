@@ -2,17 +2,19 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaProjectDiagram, FaEnvelope, FaUserShield } from "react-icons/fa";
 import "./AdminDashboard.css";
-import { fetchMessageCount, fetchProjectCount } from "../services/dataService";
+import { fetchMessageCount, fetchProjectCount, fetchAdminsCount } from "../services/dataService";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [messageCount, setMessageCount] = useState(0);
   const [projectsCount, setProjectsCount] = useState(0);
+  const [adminsCount, setAdminsCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       setMessageCount(await fetchMessageCount());
       setProjectsCount(await fetchProjectCount());
+      setAdminsCount(await fetchAdminsCount());
     };
 
     fetchData();
@@ -26,7 +28,7 @@ const AdminDashboard = () => {
   const stats = {
     projects: projectsCount,
     messages: messageCount,
-    admins: 1
+    admins: adminsCount
   };
 
   return (
@@ -47,7 +49,7 @@ const AdminDashboard = () => {
           <p>{stats.messages}</p>
         </Link>
 
-        <Link to="/admin/register" className="card">
+        <Link to="/admin/admins" className="card">
           <FaUserShield className="icon" />
           <h3>Admins</h3>
           <p>{stats.admins}</p>

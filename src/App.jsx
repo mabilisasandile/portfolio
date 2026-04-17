@@ -13,6 +13,7 @@ import ManageProjects from "./admin/ManageProjects";
 import Messages from "./admin/Messages";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRegist from "./admin/AdminRegist";
+import ManageAdmins from "./admin/ManageAdmins";
 
 function App() {
 
@@ -60,6 +61,15 @@ function App() {
           element={
             <ProtectedRoute>
               <AdminRegist />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/admins"
+          element={
+            <ProtectedRoute>
+              <ManageAdmins />
             </ProtectedRoute>
           }
         />

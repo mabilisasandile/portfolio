@@ -4,7 +4,7 @@ export const sendMessage = async (message) => {
     try {
         const response = await api.post("/Contact", message);
         return (response.data);
-    } catch(error) {
+    } catch (error) {
         console.error("Error sending message: ", error);
         return null;
     }
@@ -66,11 +66,31 @@ export const editProject = async (id, data) => {
     try {
         const response = await api.put(`/Project/${id}`, data);
         return response.data;
-    } catch(error) {
+    } catch (error) {
         console.error("Error editting project: ", error);
         return null;
     }
 }
+
+export const fetchAdmins = async () => {
+    try {
+        const res = await api.get("/admins");
+        return res.data;
+    } catch (err) {
+        console.error("Error fetching admins:", err);
+        return null;
+    }
+};
+
+export const fetchAdminsCount = async () => {
+    try {
+        const res = await api.get("/admins");
+        return res.data.length;
+    } catch (err) {
+        console.error("Error fetching admins count:", err);
+        return 0;
+    }
+};
 
 export const projects = [
     {
