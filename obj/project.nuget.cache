@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZxAlXjEQS7A=",
+  "dgSpecHash": "hrXJbqdpstI=",
   "success": true,
   "projectFilePath": "/home/sandile/Desktop/portfolioBackend/Backend/Backend.csproj",
   "expectedPackageFiles": [
@@ -47,15 +47,5 @@
     "/home/sandile/.nuget/packages/system.composition.typedparts/9.0.0/system.composition.typedparts.9.0.0.nupkg.sha512",
     "/home/sandile/.nuget/packages/system.identitymodel.tokens.jwt/8.0.1/system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
-      "projectPath": "/home/sandile/Desktop/portfolioBackend/Backend/Backend.csproj",
-      "warningLevel": 1,
-      "filePath": "/home/sandile/Desktop/portfolioBackend/Backend/Backend.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }
