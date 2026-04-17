@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { fetchAdmins } from "../services/dataService";
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash, FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./ManageAdmins.css";
@@ -77,8 +77,15 @@ const ManageAdmins = () => {
         navigate("/admin/register");
     }
 
+    const handleBack = () => {
+        navigate("/admin/dashboard");
+    };
+
     return (
         <div className="admins-container">
+            <button className="back-btn" onClick={handleBack}>
+                <FaArrowLeft /> Back to Dashboard
+            </button>
             <div className="header">
                 <h2>Manage Admins</h2>
 

@@ -37,6 +37,18 @@
     cursor: pointer;
 }
 
+.back-btn {
+    background: transparent;
+    color: #007bff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .actions {
   display: flex;
   justify-content: center;
