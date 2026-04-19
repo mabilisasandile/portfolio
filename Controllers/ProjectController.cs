@@ -7,9 +7,12 @@ public class ProjectController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public ProjectController(ApplicationDbContext context)
+    private readonly CloudinaryService _cloudinary;
+
+    public ProjectController(ApplicationDbContext context, CloudinaryService cloudinary)
     {
         _context = context;
+        _cloudinary = cloudinary;
     }
 
     // GET ALL
@@ -65,5 +68,17 @@ public class ProjectController : ControllerBase
         await _context.SaveChangesAsync();
 
         return NoContent();
+    }
+
+    // UPLOAD IMAGE
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload(IFormFile file)
+    {
+        if (file == null)
+            return BadRequest("No file");
+
+        var imageUrl = await _cloudinary.UploadImageAsync(file);
+
+        return Ok(new { imageUrl });
     }
 }

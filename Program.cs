@@ -20,13 +20,15 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseNpgsql(
+    builder.Configuration.GetConnectionString("DefaultConnection"),
+    o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
 );
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var keyString = builder.Configuration["Jwt:Key"] 
+var keyString = builder.Configuration["Jwt:Key"]
     ?? throw new Exception("JWT Key is missing");
 
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyString));
@@ -46,6 +48,8 @@ builder.Services.AddAuthentication("Bearer")
     });
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<CloudinaryService>();
 
 var app = builder.Build();
 
