@@ -44,6 +44,9 @@ const Projects = () => {
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
               >
+                {project.imageUrl && (
+                  <img src={project.imageUrl} alt="project" className="project-image" />
+                )}
                 <h3>{project.title}</h3>
 
                 <p>{project.description}</p>

@@ -1,6 +1,8 @@
 import api from "../services/api";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 import "./Messages.css";
 import { fetchMessages, fetchMessageCount } from "../services/dataService";
 
@@ -8,6 +10,7 @@ const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [messageCount, setMessageCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadMessages = async () => {
@@ -40,8 +43,16 @@ const Messages = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/admin/dashboard");
+  };
+
   return (
     <div className="messages-container">
+      <button className="back-btn" onClick={handleBack}>
+        <FaArrowLeft /> Back to Dashboard
+      </button>
+
       <div className="messages-header">
         <h2>Inbox</h2>
         <span>{messageCount} Messages</span>

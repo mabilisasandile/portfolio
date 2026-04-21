@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash, FaArrowLeft } from "react-icons/fa";
 import toast from "react-hot-toast";
 import "./ManageProjects.css";
 import { fetchProjects, addNewProject, editProject } from "../services/dataService";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 const ManageProjects = () => {
     const [projects, setProjects] = useState([]);
@@ -11,6 +12,8 @@ const ManageProjects = () => {
     const [showModal, setShowModal] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [projectId, setProjectId] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         title: "",
@@ -36,6 +39,10 @@ const ManageProjects = () => {
         }
     }, [])
 
+    const handleBack = () => {
+        navigate("/admin/dashboard");
+    };
+
     // OPEN MODAL (ADD)
     const openAddModal = () => {
         setFormData({
@@ -58,27 +65,55 @@ const ManageProjects = () => {
         console.log("Edit project ID: ", projects[index].id);
     };
 
+    // IMAGE UPLOAD FUNCTION
+    const uploadImage = async () => {
+        if (!imageFile) return "";
+
+        const formData = new FormData();
+        formData.append("file", imageFile);
+
+        const res = await api.post("/Project/upload", formData);
+
+        return res.data.imageUrl;
+    };
+
     // SAVE PROJECT
-    const handleSave = () => {
+    const handleSave = async () => {
+
+        let imageUrl = formData.imageUrl;
+
+        if (imageFile) {
+            imageUrl = await uploadImage();
+        }
+
+        const finalData = { ...formData, imageUrl };
+
         if (editingIndex !== null) {
             setLoading(true);
             try {
-                editProject(projectId, formData);
+                editProject(projectId, finalData);
                 const updated = [...projects];
-                updated[editingIndex] = formData;
+                updated[editingIndex] = finalData;
                 setProjects(updated);
                 toast.success("Project edited successfully.");
-            } catch(error) {
-                console.error("Error editting project: ", error);
-                toast.error("Error editting project");
+            } catch (error) {
+                console.error("Error editing project: ", error);
+                toast.error("Error editing project");
             } finally {
                 setLoading(false);
-            } 
+            }
 
         } else {
-            setProjects([...projects, formData]);
-            addNewProject(formData);
-            toast.success("Project added successfully.");
+            try {
+                setProjects([...projects, finalData]);
+                addNewProject(finalData);
+                toast.success("Project added successfully.");
+            } catch (error) {
+                console.error("Error saving project: ", error);
+                toast.error("Error saving project");
+            } finally {
+                setLoading(false);
+            }
         }
 
         setShowModal(false);
@@ -105,6 +140,9 @@ const ManageProjects = () => {
 
     return (
         <div className="projects-container">
+            <button className="back-btn" onClick={handleBack}>
+                <FaArrowLeft /> Back to Dashboard
+            </button>
             <div className="header">
                 <h2>Manage Projects</h2>
                 <button className="add-btn" onClick={openAddModal}>
@@ -112,11 +150,18 @@ const ManageProjects = () => {
                 </button>
             </div>
 
-            {loading ? (<h3 className="loading-text">Loading...</h3>)
-                :
-                (<div className="projects-grid">
+            {projects.length < 1 ? (
+                <h3 className="loading-text">No projects found.</h3>
+            ) : loading ? (
+                <h3 className="loading-text">Loading...</h3>
+            ) : (
+                <div className="projects-grid">
                     {projects.map((p, i) => (
                         <div key={i} className="project-card">
+                            {p.imageUrl && (
+                                <img src={p.imageUrl} alt="project" className="project-image" />
+                            )}
+
                             <h3>{p.title}</h3>
                             <p>{p.description}</p>
 
@@ -185,6 +230,12 @@ const ManageProjects = () => {
                             onChange={(e) =>
                                 setFormData({ ...formData, liveUrl: e.target.value })
                             }
+                        />
+
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setImageFile(e.target.files[0])}
                         />
 
                         <div className="modal-actions">

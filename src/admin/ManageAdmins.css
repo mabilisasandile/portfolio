@@ -49,6 +49,11 @@
     gap: 5px;
 }
 
+.loading-text {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 .actions {
   display: flex;
   justify-content: center;

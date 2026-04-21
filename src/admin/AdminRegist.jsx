@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import "./AdminLogin.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 import api from "../services/api";
 
 const AdminRegist = () => {
@@ -11,6 +12,10 @@ const AdminRegist = () => {
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate("/admin/dashboard");
+  };
 
   const handleRegist = async (e) => {
     e.preventDefault(); // Stop page refresh
@@ -45,6 +50,9 @@ const AdminRegist = () => {
         viewport={{ once: true }}
       >
         <div className="container login-content">
+          <button className="back-btn" onClick={handleBack}>
+            <FaArrowLeft /> Back to Dashboard
+          </button>
           <h2>Add New Admin</h2>
 
           <form onSubmit={handleRegist} className="login-form">

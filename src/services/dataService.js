@@ -44,6 +44,7 @@ export const fetchProjectCount = async () => {
 export const fetchProjects = async () => {
     try {
         const response = await api.get("/Project");
+        console.log("Projects: ", response.data);
         return (response.data);
     } catch (error) {
         console.error("Error fetching projects: ", error);
@@ -67,7 +68,7 @@ export const editProject = async (id, data) => {
         const response = await api.put(`/Project/${id}`, data);
         return response.data;
     } catch (error) {
-        console.error("Error editting project: ", error);
+        console.error("Error editing project: ", error);
         return null;
     }
 }

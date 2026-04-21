@@ -94,26 +94,32 @@ const ManageAdmins = () => {
                 </button>
             </div>
 
-            <div className="admins-grid">
-                {admins.map((admin) => (
-                    <div key={admin.id} className="admin-card">
-                        <h3>{admin.email}</h3>
+            {admins.length < 1 ? (
+                <h3 className="loading-text">No admins found.</h3>
+            ) : loading ? (
+                <h3 className="loading-text">Loading...</h3>
+            ) : (
+                <div className="admins-grid">
+                    {admins.map((admin) => (
+                        <div key={admin.id} className="admin-card">
+                                <h3>{admin.email}</h3>
 
-                        <div className="actions">
-                            <button onClick={() => openEditModal(admin)}>
-                                <FaEdit /> Edit
-                            </button>
+                                <div className="actions">
+                                    <button onClick={() => openEditModal(admin)}>
+                                        <FaEdit /> Edit
+                                    </button>
 
-                            <button
-                                className="delete-btn"
-                                onClick={() => handleDelete(admin.id)}
-                            >
-                                <FaTrash /> Delete
-                            </button>
-                        </div>
+                                    <button
+                                        className="delete-btn"
+                                        onClick={() => handleDelete(admin.id)}
+                                    >
+                                        <FaTrash /> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                )}
 
             {/* MODAL */}
             {showModal && (
