@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import "./Hero.css";
 import { useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
 
 const Hero = () => {
 
@@ -10,11 +9,6 @@ const Hero = () => {
 
   const handleWorkView = () => {
     navigate("/projects");
-  }
-
-  const handleViewCV = () => {
-    // window.open("../assets/sandilecv.pdf");
-    alert("View CV under construction");
   }
 
   return (

@@ -203,6 +203,7 @@ const ManageProjects = () => {
                         <textarea
                             placeholder="Description"
                             value={formData.description}
+                            rows={5}
                             onChange={(e) =>
                                 setFormData({ ...formData, description: e.target.value })
                             }

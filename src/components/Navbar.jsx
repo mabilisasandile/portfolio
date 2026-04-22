@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import "./Navbar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(true);
 
@@ -23,6 +24,32 @@ const Navbar = () => {
             localStorage.setItem("theme", "light");
         }
     }, [darkMode]);
+
+    const handleSelectChange = (e) => {
+        const value = e.target.value;
+        
+        switch(value) {
+            case "settings":
+                navigate("/admin/dashboard");
+                setMenuOpen(false);
+                break;
+            case "services":
+                window.open("https://kasi-code.netlify.app/#services", "_blank");
+                setMenuOpen(false);
+                break;
+            case "github":
+                window.open("https://github.com/mabilisasandile/portfolio", "_blank");
+                break;
+            case "linkedin":
+                window.open("https://www.linkedin.com/in/sandile-mabilisa-3ab591230", "_blank");
+                break;
+            default:
+                break;
+        }
+        
+        // Reset select to default value
+        e.target.value = "more";
+    };
 
     return (
         <nav className="navbar">
@@ -79,10 +106,15 @@ const Navbar = () => {
                     </li>
 
                     <li>
-                        <NavLink to="/admin/dashboard" onClick={() => setMenuOpen(false)}>
-                            Settings
-                        </NavLink>
+                        <select name="More" id="moreOptions" onChange={handleSelectChange}>
+                            <option value="more">More</option>
+                            <option value="settings">Settings</option>
+                            <option value="services">Services</option>
+                            <option value="github">GitHub</option>
+                            <option value="linkedin">LinkedIn</option>
+                        </select>
                     </li>
+
                 </ul>
             </div>
         </nav>
